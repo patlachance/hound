@@ -5,11 +5,11 @@ class SubscriptionsController < ApplicationController
   before_action :update_email
 
   def create
-    if repo.owner.marketplace?
+    if repo.installation_id
       if repo.owner.plan_upgrade?
         render(
           json: { upgrade_url: repo.owner.upgrade_url },
-          status: :forbidden
+          status: :forbidden,
         )
       else
         activate
