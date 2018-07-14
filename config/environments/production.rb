@@ -65,4 +65,6 @@ Houndapp::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
 
-Rack::Timeout.timeout = (ENV["RACK_TIMEOUT"] || 20).to_i
+#Rack::Timeout.timeout = (ENV["RACK_TIMEOUT"] || 20).to_i
+Rails.application.config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: (ENV["RACK_TIMEOUT"] || 20).to_i
+
